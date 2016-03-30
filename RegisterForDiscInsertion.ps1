@@ -22,7 +22,7 @@ do{
 		write-host (get-date -format s) "      Disc inserted. Starting task for drive " $eventArgs["DeviceID"].Value
 		#start-sleep -seconds 3
 		$driveLetter = $eventArgs["DeviceID"].Value
-		start-process "s:\dev\scripts\DVD_Rip\MakeMKV auto.bat" $driveLetter
+		start-process "s:\dev\scripts\AutoDVDRip\MakeMKV auto.bat" $driveLetter
 		write-host (get-date -format s) "      Process started for drive " $eventArgs["DeviceID"].Value
 	}
 
