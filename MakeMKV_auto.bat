@@ -29,8 +29,8 @@ SETLOCAL DISABLEDELAYEDEXPANSION
 
 set ripDirectory=s:\VideoToEncode\%volumeName%
 
-rem ECHO Making directory: "%ripDirectory%"
-rem mkdir "%ripDirectory%"
+ECHO Making directory: "%ripDirectory%"
+mkdir "%ripDirectory%"
 
 mosquitto_pub -h 192.168.1.70 -p 1883 -t "MakeMKV/%driveNumber%" -m "Ripping %volumeName%"
 "c:\Program Files (x86)\MakeMKV\makemkvcon64.exe" mkv -r disc:%driveNumber% all "%ripDirectory%"
