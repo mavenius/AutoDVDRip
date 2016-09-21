@@ -25,12 +25,20 @@ rem SET /p volumeName=- volumeName ?
 ECHO "%volumeName%"
 CALL :TRIM volumeName
 ECHO "%volumeName%"
+
+IF "%volumeName%"=="" (
+    For /f "tokens=2-4 delims=/ " %%a in ("%DATE% /t") do (set mydate=%%c-%%a-%%b)
+    For /f "tokens=1-2 delims=/:" %%a in ("%TIME%") do (set mytime=%%a%%b)
+
+    ECHO "Blank volumeName"
+    set volumeName=Unknown_!mydate!_!mytime!
+)
 SETLOCAL DISABLEDELAYEDEXPANSION
 
 set ripDirectory=s:\VideoToEncode\%volumeName%
 
-rem ECHO Making directory: "%ripDirectory%"
-rem mkdir "%ripDirectory%"
+ECHO Making directory: "%ripDirectory%"
+mkdir "%ripDirectory%"
 
 mosquitto_pub -h 192.168.1.70 -p 1883 -t "MakeMKV/%driveNumber%" -m "Ripping %volumeName%"
 "c:\Program Files (x86)\MakeMKV\makemkvcon64.exe" mkv -r disc:%driveNumber% all "%ripDirectory%"
